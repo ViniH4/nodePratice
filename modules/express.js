@@ -5,11 +5,13 @@ app.use(express.json());
 
 const UserModel = require("../src/models/user.model");
 
-app.use((req, res, next) => {
-  console.log(`Request Type: ${req.method}`);
-  console.log(`Content Type: ${req.headers["content-type"]}`);
-  console.log(`Date: ${new Date()}`);
-  next();
+app.set("view engine", "ejs");
+app.set("views", "src/views");
+
+app.get("/views/users", async (req, res) => {
+  const users = await UserModel.find({});
+
+  res.render("index", {users});
 });
 
 app.get("/users", async (req, res) => {
@@ -69,6 +71,17 @@ app.post("/users", async (req, res) => {
       .status(500)
       .send(`Não foi possivel criar um novo usuario! `, error.message);
   }
+
+  if(users.lenght > 0) {
+    users.forEach(user => {
+      console.log();
+      console.log();
+    })
+  }
+  else {
+
+  }
+
 });
 
 app.listen(PORT, () => {
