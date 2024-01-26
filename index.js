@@ -1,9 +1,7 @@
-const { Person } = require("./person.js");
+const dotenv = require("dotenv");
+dotenv.config();
 
-// require("./modules/path")
-// require("./modules/fs");
-// require("./modules/http");
+const connectToDatabase = require("./src/database/connect.js");
+connectToDatabase();
 
 require("./modules/express.js");
-
-const person = new Person("Vini");
